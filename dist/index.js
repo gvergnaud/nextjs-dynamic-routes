@@ -220,13 +220,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var match = __WEBPACK_IMPORTED_MODULE_0_path_match___default()();
 
-var log = function log(x) {
-  return console.log(x), x;
-};
-
 var createMiddleware = function createMiddleware(routes) {
   return function (app) {
-
+    var handle = app.getRequestHandler();
     var getMatchingRoute = function getMatchingRoute(req) {
       return Object.values(routes).reduce(function (acc, _ref) {
         var pattern = _ref.pattern,
@@ -245,7 +241,7 @@ var createMiddleware = function createMiddleware(routes) {
           page = _getMatchingRoute.page,
           params = _getMatchingRoute.params;
 
-      if (page) app.render(req, res, page, params);else next();
+      if (page) app.render(req, res, page, params);else handle(req, res);
     };
   };
 };

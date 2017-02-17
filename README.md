@@ -47,7 +47,19 @@ export default createDynamicRoutes({
 
 Add the middleware to your express server:
 ```js
-expressServer.use(dynamicRoutes.createMiddleware(nextApp))
+import express from 'express'
+import next from 'next'
+import dynamicRoutes from './routes'
+
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({ dev })
+const server = express()
+
+app.prepare()
+  .then(() => {
+    server.use(dynamicRoutes.createMiddleware(app))
+    server.listen(3000)
+  })
 ```
 
 Then Nextjs Dynamic Routes will generate for you every Link components you will

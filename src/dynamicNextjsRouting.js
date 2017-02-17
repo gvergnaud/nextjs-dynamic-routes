@@ -8,10 +8,8 @@ import { mapKeys, mapValues } from './utils/object'
 
 const match = pathMatch()
 
-const log = x => (console.log(x), x)
-
 const createMiddleware = routes => app => {
-
+  const handle = app.getRequestHandler()
   const getMatchingRoute = req =>
     Object.values(routes).reduce((acc, { pattern, page }) => {
       if (acc.page) return acc
@@ -24,9 +22,8 @@ const createMiddleware = routes => app => {
 
   return (req, res, next) => {
     const { page, params } = getMatchingRoute(req)
-
     if (page) app.render(req, res, page, params)
-    else next()
+    else handle(req, res)
   }
 }
 
