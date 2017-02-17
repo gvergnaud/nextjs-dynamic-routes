@@ -1,13 +1,16 @@
 {
   "name": "nextjs-dynamic-routes",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Thin wrapper around Next.js's router to enable you to create dynamic routes.",
-  "main": "./dist/index.js",
-  "repository": "no",
+  "main": "dist/index.js",
+  "repository": {
+    "url": "https://github.com/gvergnaud/nextjs-dynamic-routes.git",
+    "type": "git"
+  },
   "author": "Gabriel Vergnaud",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --config ./webpack.config.js"
+    "build": "webpack --config webpack.config.js"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
@@ -15,15 +18,16 @@
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-2": "^6.22.0",
-    "webpack": "^2.2.1"
-  },
-  "dependencies": {
-    "lodash": "^4.17.4",
-    "path-match": "^1.2.4",
+    "webpack": "^2.2.1",
     "webpack-node-externals": "^1.5.4"
   },
+  "dependencies": {
+    "babel-plugin-proxy": "^1.1.0",
+    "lodash": "^4.17.4",
+    "path-match": "^1.2.4"
+  },
   "peerDependencies": {
-    "next": "^2.0.0",
-    "react": "^15.4.2"
+    "next": "2.x",
+    "react": "15.x"
   }
 }

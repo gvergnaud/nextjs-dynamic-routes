@@ -1,4 +1,5 @@
-(function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -63,7 +64,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -96,7 +97,7 @@ var mapKeys = function mapKeys(mapper) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queryString__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queryString__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__object__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createLinkProps; });
 
@@ -125,28 +126,34 @@ var createLinkProps = function createLinkProps(_ref) {
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("lodash/fp");
+module.exports = require("lodash/fp/capitalize");
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("next/link");
+module.exports = require("lodash/fp/compose");
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = require("path-match");
+module.exports = require("next/link");
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = require("react");
+module.exports = require("path-match");
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("react");
+
+/***/ }),
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -184,22 +191,25 @@ var fromString = function fromString(str) {
 };
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_match__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_match__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_match___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path_match__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_link__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_link__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_link___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_next_link__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_fp__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_fp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_lodash_fp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_routing__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_object__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_fp_capitalize__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_fp_capitalize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_lodash_fp_capitalize__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash_fp_compose__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash_fp_compose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash_fp_compose__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_routing__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_object__ = __webpack_require__(0);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 
 
 
@@ -241,9 +251,9 @@ var createMiddleware = function createMiddleware(routes) {
 };
 
 var createLinks = function createLinks(routes) {
-  var links = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_lodash_fp__["compose"])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__utils_object__["a" /* mapKeys */])(function (key) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_lodash_fp__["capitalize"])(key) + 'Link';
-  }), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__utils_object__["b" /* mapValues */])(function (mapProps) {
+  var links = __WEBPACK_IMPORTED_MODULE_4_lodash_fp_compose___default()(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__utils_object__["a" /* mapKeys */])(function (key) {
+    return __WEBPACK_IMPORTED_MODULE_3_lodash_fp_capitalize___default()(key) + 'Link';
+  }), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__utils_object__["b" /* mapValues */])(function (mapProps) {
     return function (props) {
       return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_2_next_link___default.a,
@@ -251,7 +261,7 @@ var createLinks = function createLinks(routes) {
         props.children
       );
     };
-  }), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__utils_object__["b" /* mapValues */])(__WEBPACK_IMPORTED_MODULE_4__utils_routing__["a" /* createLinkProps */]))(routes);
+  }), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__utils_object__["b" /* mapValues */])(__WEBPACK_IMPORTED_MODULE_5__utils_routing__["a" /* createLinkProps */]))(routes);
 
   return new Proxy(links, {
     get: function get(_, k) {
@@ -272,4 +282,4 @@ var createDynamicRoutes = function createDynamicRoutes(routesConfig) {
 /* harmony default export */ __webpack_exports__["default"] = createDynamicRoutes;
 
 /***/ })
-/******/ ])));
+/******/ ]);

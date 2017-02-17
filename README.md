@@ -5,7 +5,7 @@ framework.
 
 ## Why ?
 
-Next.js introduced in it's V2 a programatic routing API allowing you to serve your
+Next.js introduced in it's V2 a programmatic routing API allowing you to serve your
 Next app from, for example, an express server:
 
 ```js
@@ -16,7 +16,7 @@ server.get('/a', (req, res) => {
 ```
 ```jsx
 // /index.js
-<Link href="/a" as="/b"><a>Visit me!</a></Link>
+<Link href="/b" as="/a"><a>Visit me!</a></Link>
 ```
 
 But as the number of pages grows, it's getting a little hard to manage...
@@ -53,8 +53,9 @@ expressServer.use(dynamicRoutes.createMiddleware(nextApp))
 Then Nextjs Dynamic Routes will generate for you every Link components you will
 need! you just have to import them like this:
 
-```js
-import { UserLink, FilmLink } from 'nextjs-dynamic-routes'
+```jsx
+// pages/index.js
+import { UserLink, FilmLink } from '../routes'
 
 export default () => (
   <div>
@@ -73,18 +74,19 @@ export default () => (
 )
 ```
 
-### Even cooler
+### It works for static routes too
 
 You can even import `Link` components that you didn't declare in your `routes.js`
-config file! It's using an es6 Proxy for that and auto fill the `href` property
+config file! It's using an es6 `Proxy` under the hood to auto-fill the `href` property
 based on the name of the `Link` component you imported.
 
 for exemple if you do:
 ```js
-import { AboutLink } from 'nextjs-dynamic-routes'
+// pages/index.js
+import { AboutLink } from '../routes'
 ```
 what you will actually get is:
-```js
+```jsx
 props => <Link href="/about" {...props} />
 ```
 Pretty cool huh?

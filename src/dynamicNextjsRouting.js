@@ -1,7 +1,8 @@
 import pathMatch from 'path-match'
 import React from 'react'
 import Link from 'next/link'
-import { capitalize, compose } from 'lodash/fp'
+import capitalize from 'lodash/fp/capitalize'
+import compose from 'lodash/fp/compose'
 import { createLinkProps } from './utils/routing'
 import { mapKeys, mapValues } from './utils/object'
 

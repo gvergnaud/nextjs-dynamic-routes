@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'index.js',
-    libraryTarget: 'commonjs'
+    libraryTarget: 'commonjs2'
   },
   module: {
     rules: [
@@ -19,8 +19,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({'process.env.NODE_ENV': 'production'}),
-    // new webpack.optimize.UglifyJsPlugin()
+    new webpack.DefinePlugin({'process.env.NODE_ENV': 'production'})
   ],
   externals: [
     nodeExternals({
