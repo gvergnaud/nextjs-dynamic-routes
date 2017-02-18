@@ -6,7 +6,9 @@ const replaceWithParams = (params, pattern) =>
     .reduce((acc, param) => acc.replace(`:${param}`, params[param]), pattern)
     .replace(/:[^\/&\?]*(\/|$)/g, '')
 
-export const createLinkProps = ({ pattern = '', page = '' }) => params => ({
-  href: `${page}?${toString(params)}`,
+export const addInitialSlash = str => !!str.match(/^\//) ? str : `/${str}`
+
+export const createLinkProps = (pattern = '', page = '') => params => ({
+  href: `${addInitialSlash(page)}?${toString(params)}`,
   as: replaceWithParams(params, pattern),
 })

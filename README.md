@@ -10,13 +10,13 @@ Next app from, for example, an express server:
 
 ```js
 // yourServer.js
-server.get('/a', (req, res) => {
-  return app.render(req, res, '/b', req.query)
+server.get('/user/:id', (req, res) => {
+  return app.render(req, res, '/user', req.params)
 })
 ```
 ```jsx
 // /index.js
-<Link href="/b" as="/a"><a>Visit me!</a></Link>
+<Link href={`/user?id={id}`} as={`/user/${id}`}><a>Visit me!</a></Link>
 ```
 
 But as the number of pages grows, it's getting a little hard to manage...
@@ -34,14 +34,8 @@ You don't have to list your regular routes, as Next.js will handle them as usual
 import createDynamicRoutes from 'nextjs-dynamic-routes'
 
 export default createDynamicRoutes({
-  user: {
-    pattern: '/user/:id',
-    page: '/user'
-  },
-  film: {
-    pattern: '/film/:id',
-    page: '/film'
-  }
+  '/user': '/user/:id',
+  '/film': '/film/:id'
 })
 ```
 
@@ -86,7 +80,17 @@ export default () => (
 )
 ```
 
-### It works for static routes too
+### Prefetching data
+Next.js has this great feature allowing you to prefetch data for you next routes
+in the background.
+
+You can benefit of that by simply putting a `prefetch` property on any Link :
+
+```jsx
+<FilmLink prefetch id="2"><a>The Empire Strikes Back</a></FilmLink>
+```
+
+### It works for static routes too!
 
 You can even import `Link` components that you didn't declare in your `routes.js`
 config file! It's using an es6 `Proxy` under the hood to auto-fill the `href` property
