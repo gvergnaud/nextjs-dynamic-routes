@@ -1,0 +1,22 @@
+{
+  "name": "nextjs-dynamic-routes-example",
+  "version": "0.1.0",
+  "description": "example of usage for nextjs-dynamic-routes",
+  "main": "server.js",
+  "repository": {},
+  "author": "Gabriel Vergnaud",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js"
+  },
+  "dependencies": {
+    "express": "^4.14.1",
+    "isomorphic-fetch": "^2.2.1",
+    "next": "@.0.0-beta.31",
+    "nextjs-dynamic-routes": "^1.0.6",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
+}

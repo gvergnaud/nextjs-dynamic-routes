@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -97,7 +97,7 @@ var mapKeys = function mapKeys(mapper) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queryString__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queryString__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__object__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addInitialSlash; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return createLinkProps; });
@@ -147,22 +147,16 @@ module.exports = require("next/link");
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = require("next/prefetch");
+module.exports = require("path-match");
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = require("path-match");
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
 module.exports = require("react");
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -200,27 +194,26 @@ var fromString = function fromString(str) {
 };
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_match__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_match__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_match___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path_match__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_link__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_link___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_next_link__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_next_prefetch__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_next_prefetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_next_prefetch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash_fp_capitalize__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash_fp_capitalize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash_fp_capitalize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_fp_compose__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_fp_compose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_lodash_fp_compose__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_routing__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_object__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_fp_capitalize__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_fp_capitalize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_lodash_fp_capitalize__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash_fp_compose__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash_fp_compose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash_fp_compose__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_routing__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_object__ = __webpack_require__(0);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 
 
@@ -232,7 +225,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var match = __WEBPACK_IMPORTED_MODULE_0_path_match___default()();
 
-var createMiddleware = function createMiddleware(routes) {
+var createRequestHandler = function createRequestHandler(routes) {
   return function (app) {
     var handle = app.getRequestHandler();
     var getMatchingRoute = function getMatchingRoute(url) {
@@ -245,40 +238,53 @@ var createMiddleware = function createMiddleware(routes) {
       }, {});
     };
 
-    return function (req, res, next) {
+    return function (req, res) {
       var _getMatchingRoute = getMatchingRoute(req.url),
           page = _getMatchingRoute.page,
           params = _getMatchingRoute.params;
 
-      if (page) app.render(req, res, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__utils_routing__["a" /* addInitialSlash */])(page), params);else handle(req, res);
+      if (page) app.render(req, res, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__utils_routing__["a" /* addInitialSlash */])(page), params);else handle(req, res);
     };
   };
 };
 
+var pathToComponentName = function pathToComponentName(path) {
+  return path.replace(/^\//, '').replace(/(^.|-.)/g, function (c) {
+    return c.replace('-', '').toUpperCase();
+  });
+};
+
+var componentNameToPath = function componentNameToPath(componentName) {
+  return componentName.replace(/^./, function (c) {
+    return '/' + c.toLowerCase();
+  }).replace(/[A-Z]/g, function (c) {
+    return '-' + c.toLowerCase();
+  });
+};
+
 var createLinks = function createLinks(routes) {
-  var links = __WEBPACK_IMPORTED_MODULE_5_lodash_fp_compose___default()(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils_object__["a" /* mapKeys */])(function (key) {
-    return __WEBPACK_IMPORTED_MODULE_4_lodash_fp_capitalize___default()(key.replace(/^\//, '')) + 'Link';
-  }), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils_object__["b" /* mapValues */])(function (mapProps) {
-    return function (props) {
-      return props.prefetch ? __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_3_next_prefetch___default.a,
-        _extends({}, mapProps(props), props),
-        props.children
-      ) : __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+  var links = __WEBPACK_IMPORTED_MODULE_4_lodash_fp_compose___default()(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__utils_object__["a" /* mapKeys */])(function (path) {
+    return pathToComponentName(path) + 'Link';
+  }), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__utils_object__["b" /* mapValues */])(function (mapProps) {
+    return function (_ref) {
+      var children = _ref.children,
+          props = _objectWithoutProperties(_ref, ['children']);
+
+      return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_2_next_link___default.a,
         _extends({}, mapProps(props), props),
-        props.children
+        children
       );
     };
-  }), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils_object__["b" /* mapValues */])(__WEBPACK_IMPORTED_MODULE_6__utils_routing__["b" /* createLinkProps */]))(routes);
+  }), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__utils_object__["b" /* mapValues */])(__WEBPACK_IMPORTED_MODULE_5__utils_routing__["b" /* createLinkProps */]))(routes);
 
   return new Proxy(links, {
-    get: function get(_, k) {
-      return !!links[k] ? links[k] : typeof k !== 'string' || !k.match('Link') ? undefined : function (props) {
-        return props.prefetch ? __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_next_prefetch___default.a, _extends({
-          href: '/' + k.replace('Link', '').toLowerCase()
-        }, props)) : __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_next_link___default.a, _extends({
-          href: '/' + k.replace('Link', '').toLowerCase()
+    get: function get(_, componentName) {
+      return !!links[componentName] ? links[componentName] : typeof componentName !== 'string' || !componentName.match('Link') ? undefined : componentName === 'IndexLink' ? function (props) {
+        return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_next_link___default.a, _extends({ href: '/' }, props));
+      } : function (props) {
+        return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_next_link___default.a, _extends({
+          href: '/' + componentNameToPath(k.replace('Link', ''))
         }, props));
       };
     }
@@ -287,9 +293,10 @@ var createLinks = function createLinks(routes) {
 
 var createDynamicRoutes = function createDynamicRoutes(routesConfig) {
   var routes = createLinks(routesConfig);
-  routes.createMiddleware = createMiddleware(routesConfig);
+  routes.createRequestHandler = createRequestHandler(routesConfig);
   return routes;
 };
+
 /* harmony default export */ __webpack_exports__["default"] = createDynamicRoutes;
 
 /***/ })

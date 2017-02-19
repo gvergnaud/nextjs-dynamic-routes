@@ -1,6 +1,6 @@
 # Next.js Dynamic Routes (WIP)
 
-A dynamic routing solution for the [Next.js](https://github.com/zeit/next.js)
+A dynamic routing solution for the awesome [Next.js](https://github.com/zeit/next.js)
 framework.
 
 ## Why ?
@@ -27,56 +27,60 @@ But as the number of pages grows, it's getting a little hard to manage...
 npm install --save nextjs-dynamic-routes
 ```
 
-First create a `routes.js` file and list all your **Dynamic** routes.
+### Setup you routes
+Create a `routes.js` file and list all your **Dynamic** routes.
 You don't have to list your regular routes, as Next.js will handle them as usual.
 
 ```js
-import createDynamicRoutes from 'nextjs-dynamic-routes'
+const createDynamicRoutes = require('nextjs-dynamic-routes').default
 
-export default createDynamicRoutes({
-  '/user': '/user/:id',
-  '/film': '/film/:id'
+module.exports = createDynamicRoutes({
+  '/character': '/characters/:id',
+  '/film': '/films/:id',
+  '/character-and-film': '/character-and-film/:characterId/:filmId'
+  // works for any number of params
 })
 ```
 
-Add the middleware to your express server:
+### Setup your request handler
 ```js
-import express from 'express'
-import next from 'next'
-import dynamicRoutes from './routes'
+const express = require('express')
+const next = require('next')
+const { createRequestHandler } = require('./routes')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const server = express()
+const handle = createRequestHandler(app)
 
 app.prepare()
   .then(() => {
-    server.use(dynamicRoutes.createMiddleware(app))
+    server.get('*', (req, res) => handle(req, res))
     server.listen(3000)
   })
 ```
 
+### Use your routes
 Then Nextjs Dynamic Routes will generate for you every Link components you will
 need! you just have to import them like this:
 
 ```jsx
 // pages/index.js
-import { UserLink, FilmLink } from '../routes'
+import React from 'react'
+import { CharacterLink, FilmLink, CharacterAndFilmLink } from '../routes'
 
 export default () => (
-  <div>
-    <h1>Users</h1>
-    <nav>
-      <UserLink id="1"><a>Luke Skywalker</a></UserLink>
-      <UserLink id="2"><a>C-3PO</a></UserLink>
-    </nav>
-
-    <h1>Films</h1>
-    <nav>
-      <FilmLink id="1"><a>A New Hope</a></FilmLink>
-      <FilmLink id="2"><a>The Empire Strikes Back</a></FilmLink>
-    </nav>
-  </div>
+  <ul>
+    <li><CharacterLink id="1"><a>Luke Skywalker</a></CharacterLink></li>
+    <li><CharacterLink id="2"><a>C-3PO</a></CharacterLink></li>
+    <li><FilmLink id="1"><a>A New Hope</a></FilmLink></li>
+    <li><FilmLink id="2"><a>The Empire Strikes Back</a></FilmLink></li>
+    <li>
+      <CharacterAndFilmLink characterId="1" filmId="2">
+        <a>The Empire Strikes Back and Luke Skywalker</a>
+      </CharacterAndFilmLink>
+    </li>
+  </ul>
 )
 ```
 
