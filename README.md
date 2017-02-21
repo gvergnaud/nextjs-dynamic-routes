@@ -1,4 +1,4 @@
-# Next.js Dynamic Routes (WIP)
+# Next.js Dynamic Routes
 
 A dynamic routing solution for the awesome [Next.js](https://github.com/zeit/next.js)
 framework.
@@ -84,7 +84,7 @@ export default () => (
 )
 ```
 
-### Prefetching data
+## Prefetching data
 Next.js has this great feature allowing you to prefetch data for you next routes
 in the background.
 
@@ -94,7 +94,7 @@ You can benefit of that by simply putting a `prefetch` property on any Link :
 <FilmLink prefetch id="2"><a>The Empire Strikes Back</a></FilmLink>
 ```
 
-### It works for static routes too!
+## It works for static routes too!
 
 You can even import `Link` components that you didn't declare in your `routes.js`
 config file! It's using an es6 `Proxy` under the hood to auto-fill the `href` property
