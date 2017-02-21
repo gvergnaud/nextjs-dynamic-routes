@@ -14,8 +14,8 @@
   "dependencies": {
     "express": "^4.14.1",
     "isomorphic-fetch": "^2.2.1",
-    "next": "@.0.0-beta.31",
-    "nextjs-dynamic-routes": "^1.0.6",
+    "next": "2.0.0-beta.32",
+    "nextjs-dynamic-routes": "^1.0.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   }

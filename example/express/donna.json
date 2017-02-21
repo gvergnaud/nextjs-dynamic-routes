@@ -1,0 +1,24 @@
+{
+  "instructions": [
+    {
+      "action": "open",
+      "args": {
+        "file": "/",
+        "app": "Atom"
+      }
+    },
+    {
+      "action": "run",
+      "args": {
+        "cmd": "npm run dev",
+        "background": true
+      }
+    },
+    {
+      "action": "browse",
+      "args": {
+        "url": "http://localhost:3000"
+      }
+    }
+  ]
+}
