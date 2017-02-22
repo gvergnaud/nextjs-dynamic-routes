@@ -27,7 +27,7 @@ But as the number of pages grows, it's getting a little hard to manage...
 npm install --save nextjs-dynamic-routes
 ```
 
-### Setup you routes
+### Setup your routes
 Create a `routes.js` file and list all your **Dynamic** routes.
 You don't have to list your regular routes, as Next.js will handle them as usual.
 
@@ -85,7 +85,7 @@ export default () => (
 ```
 
 ## Prefetching data
-Next.js has this great feature allowing you to prefetch data for you next routes
+Next.js has this great feature allowing you to prefetch data for your next routes
 in the background.
 
 You can benefit of that by simply putting a `prefetch` property on any Link :
@@ -100,7 +100,7 @@ You can even import `Link` components that you didn't declare in your `routes.js
 config file! It's using an es6 `Proxy` under the hood to auto-fill the `href` property
 based on the name of the `Link` component you imported.
 
-for exemple if you do:
+For exemple if you import this:
 ```js
 // pages/index.js
 import { AboutLink } from '../routes'
