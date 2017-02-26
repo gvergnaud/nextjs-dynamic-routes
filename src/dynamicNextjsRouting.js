@@ -60,7 +60,7 @@ const createLinks = routes => {
   })
 }
 
-const createDynamicRoutes = (routesConfig) => {
+const createDynamicRoutes = routesConfig => {
   const routes = createLinks(routesConfig)
   routes.createRequestHandler = createRequestHandler(routesConfig)
   return routes

@@ -5,8 +5,8 @@ import { IndexLink, CharacterLink } from '../routes'
 export default class CharacterAndFilmPage extends Component {
   static async getInitialProps({ query }) {
     return {
-      character: await fetch(`http://swapi.co/api/people/${query.characterId}`).then(x => x.json()),
-      film: await fetch(`http://swapi.co/api/films/${query.filmId}`).then(x => x.json()),
+      character: await fetch(`https://swapi.co/api/people/${query.characterId}`).then(x => x.json()),
+      film: await fetch(`https://swapi.co/api/films/${query.filmId}`).then(x => x.json()),
     }
   }
 

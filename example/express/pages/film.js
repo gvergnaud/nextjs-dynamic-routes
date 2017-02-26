@@ -6,7 +6,7 @@ const idFromUrl = url => url.match(/people\/([0-9]*)/)[1]
 
 export default class FilmPage extends Component {
   static async getInitialProps({ query }) {
-    return fetch(`http://swapi.co/api/films/${query.id}`).then(x => x.json())
+    return fetch(`https://swapi.co/api/films/${query.id}`).then(x => x.json())
   }
 
   render() {
