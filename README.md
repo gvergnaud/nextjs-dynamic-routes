@@ -105,6 +105,9 @@ For exemple if you import this:
 // pages/index.js
 import { AboutLink } from '../routes'
 ```
+```jsx
+<AboutLink>About</AboutLink>
+```
 what you will actually get is:
 ```jsx
 props => <Link href="/about" {...props} />
