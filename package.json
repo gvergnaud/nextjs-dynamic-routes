@@ -1,6 +1,6 @@
 {
   "name": "nextjs-dynamic-routes",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Super simple way to create dynamic routes with url parameters with Next.js",
   "main": "dist/index.js",
   "repository": {
@@ -10,7 +10,8 @@
   "author": "Gabriel Vergnaud",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",

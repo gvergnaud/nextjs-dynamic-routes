@@ -74,12 +74,13 @@ module.exports =
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queryString__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__object__ = __webpack_require__(5);
+/* unused harmony export replaceWithParams */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addInitialSlash; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return createLinkProps; });
 
 
 
-var replaceWithParams = function replaceWithParams(params, pattern) {
+var replaceWithParams = function replaceWithParams(pattern, params) {
   return Object.keys(params).reduce(function (acc, param) {
     return acc.replace(':' + param, params[param]);
   }, pattern).replace(/:[^\/&\?]*(\/|$)/g, '');
@@ -95,7 +96,7 @@ var createLinkProps = function createLinkProps() {
   var params = arguments[2];
   return {
     href: addInitialSlash(page) + '?' + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queryString__["a" /* toString */])(params),
-    as: replaceWithParams(params, pattern)
+    as: replaceWithParams(pattern, params)
   };
 };
 
@@ -226,16 +227,22 @@ var Router = function Router() {
     _this.routes.push({ pattern: pattern, page: page, name: name });
   };
 
+  this.getRoute = function (name) {
+    var route = _this.routes.find(function (r) {
+      return r.name === name;
+    });
+    if (!route) throw new Error('The route ' + name + ' doesn\'t exist.');
+    return route;
+  };
+
   this.Link = function (_ref2) {
     var children = _ref2.children,
         route = _ref2.route,
         params = _objectWithoutProperties(_ref2, ['children', 'route']);
 
-    var _routes$find = _this.routes.find(function (r) {
-      return r.name === route;
-    }),
-        page = _routes$find.page,
-        pattern = _routes$find.pattern;
+    var _getRoute = _this.getRoute(name),
+        page = _getRoute.page,
+        pattern = _getRoute.pattern;
 
     return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_2_next_link___default.a,
@@ -245,11 +252,9 @@ var Router = function Router() {
   };
 
   this.pushRoute = function (name, params) {
-    var _routes$find2 = _this.routes.find(function (r) {
-      return r.name === name;
-    }),
-        page = _routes$find2.page,
-        pattern = _routes$find2.pattern;
+    var _getRoute2 = _this.getRoute(name),
+        page = _getRoute2.page,
+        pattern = _getRoute2.pattern;
 
     var _createLinkProps = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_routing__["b" /* createLinkProps */])(page, pattern, params),
         href = _createLinkProps.href,
@@ -269,7 +274,7 @@ var Router = function Router() {
     }, {});
   };
 
-  this.createRequestHandler = function (app) {
+  this.getRequestHandler = function (app) {
     var handle = app.getRequestHandler();
 
     return function (req, res) {
@@ -279,6 +284,13 @@ var Router = function Router() {
 
       if (page) app.render(req, res, page, params);else handle(req, res);
     };
+  };
+
+  this.getRoutePath = function (routeName, params) {
+    var _getRoute3 = _this.getRoute(name),
+        pattern = _getRoute3.pattern;
+
+    return replaceWithParams(pattern, params);
   };
 };
 
