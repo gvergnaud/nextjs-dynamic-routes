@@ -14,8 +14,14 @@ export default class Router {
     this.routes.push({ pattern, page, name })
   }
 
+  getRoute = name => {
+    const route = this.routes.find(r => r.name === name)
+    if (!route) throw new Error(`The route ${name} doesn't exist.`)
+    return route
+  }
+
   Link = ({ children, route, ...params }) => {
-    const { page, pattern } = this.routes.find(r => r.name === route)
+    const { page, pattern } = this.getRoute(name)
 
     return (
       <Link {...createLinkProps(page, pattern, params)} {...params}>{children}</Link>
@@ -23,7 +29,7 @@ export default class Router {
   }
 
   pushRoute = (name, params) => {
-    const { page, pattern } = this.routes.find(r => r.name === name)
+    const { page, pattern } = this.getRoute(name)
     const { href, as } = createLinkProps(page, pattern, params)
     return NextRouter.push(href, as)
   }
@@ -45,6 +51,11 @@ export default class Router {
       if (page) app.render(req, res, page, params)
       else handle(req, res)
     }
+  }
+
+  getRoutePath = (routeName, params) => {
+    const { pattern } = this.getRoute(name)
+    return replaceWithParams(pattern, params)
   }
 
 }
