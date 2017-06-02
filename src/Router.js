@@ -43,7 +43,7 @@ export default class Router {
     }, {})
   }
 
-  createRequestHandler = (app) => {
+  getRequestHandler = (app) => {
     const handle = app.getRequestHandler()
 
     return (req, res) => {

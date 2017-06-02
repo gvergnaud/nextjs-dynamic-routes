@@ -5,7 +5,7 @@ const Router = require('./routes')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const server = express()
-const handle = Router.createRequestHandler(app)
+const handle = Router.getRequestHandler(app)
 
 app.prepare()
   .then(() => {

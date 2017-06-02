@@ -54,11 +54,11 @@ module.exports = router
 ```js
 const express = require('express')
 const next = require('next')
-const { createRequestHandler } = require('./routes')
+const Router = require('./routes')
 
 const app = next({ dev: process.env.NODE_ENV !== 'production' })
 const server = express()
-const handle = createRequestHandler(app)
+const handle = Router.getRequestHandler(app)
 
 app.prepare()
   .then(() => {
