@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
 import fetch from 'isomorphic-fetch'
-import { IndexLink, CharacterLink } from '../routes'
+import { Link } from '../routes'
 
 const idFromUrl = url => url.match(/people\/([0-9]*)/)[1]
 
 export default class FilmPage extends Component {
   static async getInitialProps({ query }) {
-    return fetch(`https://swapi.co/api/films/${query.id}`).then(x => x.json())
+    return fetch(`//swapi.co/api/films/${query.id}`).then(x => x.json())
   }
 
   render() {
     const { title, opening_crawl, characters = [] } = this.props
     return (
       <div>
-        <IndexLink><a>Back to home</a></IndexLink>
+        <Link route="index"><a>Back to home</a></Link>
         <h1>{title}</h1>
         <p>{opening_crawl}</p>
         <h2>Characters : </h2>
@@ -21,7 +21,7 @@ export default class FilmPage extends Component {
           {characters
             .map(idFromUrl)
             .map((id, i) =>
-              <li key={i}><CharacterLink prefetch id={id}><a>{id}</a></CharacterLink></li>
+              <li key={i}><Link route="character" prefetch id={id}><a>{id}</a></Link></li>
             )}
         </ul>
       </div>

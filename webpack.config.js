@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'dynamicNextjsRouting.js'),
+  entry: path.join(__dirname, 'src', 'Router.js'),
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'index.js',

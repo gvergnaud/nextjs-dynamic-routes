@@ -1,24 +1,21 @@
 {
-  "instructions": [
-    {
-      "action": "open",
-      "args": {
-        "file": "/",
-        "app": "Atom"
-      }
-    },
-    {
-      "action": "run",
-      "args": {
-        "cmd": "npm run dev",
-        "background": true
-      }
-    },
-    {
-      "action": "browse",
-      "args": {
-        "url": "http://localhost:3000"
-      }
-    }
+  "plugins": ["donna-lol"],
+  "do": [
+    [
+      "lol"
+    ],
+    [
+      "open",
+      "Atom",
+      "/"
+    ],
+    [
+      "browse",
+      "localhost:3000"
+    ],
+    [
+      "run",
+      "npm run dev"
+    ]
   ]
 }

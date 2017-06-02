@@ -1,11 +1,11 @@
 const express = require('express')
 const next = require('next')
-const { createRequestHandler } = require('./routes')
+const Router = require('./routes')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const server = express()
-const handle = createRequestHandler(app)
+const handle = Router.createRequestHandler(app)
 
 app.prepare()
   .then(() => {

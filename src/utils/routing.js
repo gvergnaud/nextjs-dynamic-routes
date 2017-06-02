@@ -8,7 +8,7 @@ const replaceWithParams = (params, pattern) =>
 
 export const addInitialSlash = str => !!str.match(/^\//) ? str : `/${str}`
 
-export const createLinkProps = (pattern = '', page = '') => params => ({
+export const createLinkProps = (page = '', pattern = '', params) => ({
   href: `${addInitialSlash(page)}?${toString(params)}`,
   as: replaceWithParams(params, pattern),
 })

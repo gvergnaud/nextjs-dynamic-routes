@@ -15,7 +15,7 @@ server.get('/user/:id', (req, res) => {
 })
 ```
 ```jsx
-// /index.js
+// ./pages/index.js
 <Link href={`/user?id={id}`} as={`/user/${id}`}><a>Visit me!</a></Link>
 ```
 
@@ -32,14 +32,22 @@ Create a `routes.js` file and list all your **Dynamic** routes.
 You don't have to list your regular routes, as Next.js will handle them as usual.
 
 ```js
-const createDynamicRoutes = require('nextjs-dynamic-routes').default
+const Router = require('nextjs-dynamic-routes').default
 
-module.exports = createDynamicRoutes({
-  '/character': '/characters/:id',
-  '/film': '/films/:id',
-  '/character-and-film': '/character-and-film/:characterId/:filmId'
-  // works for any number of params
-})
+const router = new Router()
+
+router.add({ name: 'character', pattern: '/characters/:id' }),
+router.add({ name: 'film', pattern: '/films/:id' }),
+
+// if the name of your route is different from your component file name:
+router.add({
+  name: 'characterAndFilm',
+  pattern: '/character-and-film/:characterId/:filmId',
+  page: 'character-and-film'
+}),
+
+module.exports = router
+
 ```
 
 ### Setup your request handler
@@ -48,8 +56,7 @@ const express = require('express')
 const next = require('next')
 const { createRequestHandler } = require('./routes')
 
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
+const app = next({ dev: process.env.NODE_ENV !== 'production' })
 const server = express()
 const handle = createRequestHandler(app)
 
@@ -61,24 +68,24 @@ app.prepare()
 ```
 
 ### Use your routes
-Then Nextjs Dynamic Routes will generate for you every Link components you will
-need! you just have to import them like this:
+Then Nextjs Dynamic Routes exports a `Link` component. It's just like `next/link`,
+but it adds a `route` prop that let you refer to a route by its name.
 
 ```jsx
 // pages/index.js
 import React from 'react'
-import { CharacterLink, FilmLink, CharacterAndFilmLink } from '../routes'
+import { Link } from '../routes'
 
 export default () => (
   <ul>
-    <li><CharacterLink id="1"><a>Luke Skywalker</a></CharacterLink></li>
-    <li><CharacterLink id="2"><a>C-3PO</a></CharacterLink></li>
-    <li><FilmLink id="1"><a>A New Hope</a></FilmLink></li>
-    <li><FilmLink id="2"><a>The Empire Strikes Back</a></FilmLink></li>
+    <li><Link route="character" id="1"><a>Luke Skywalker</a></Link></li>
+    <li><Link route="character" id="2"><a>C-3PO</a></Link></li>
+    <li><Link route="film" id="1"><a>A New Hope</a></Link></li>
+    <li><Link route="film" id="2"><a>The Empire Strikes Back</a></Link></li>
     <li>
-      <CharacterAndFilmLink characterId="1" filmId="2">
+      <Link route="characterAndFilm" characterId="1" filmId="2">
         <a>The Empire Strikes Back and Luke Skywalker</a>
-      </CharacterAndFilmLink>
+      </Link>
     </li>
   </ul>
 )
@@ -91,22 +98,14 @@ in the background.
 You can benefit of that by simply putting a `prefetch` property on any Link :
 
 ```jsx
-<FilmLink prefetch id="2"><a>The Empire Strikes Back</a></FilmLink>
+<Link prefetch route="film" id="2"><a>The Empire Strikes Back</a></Link>
 ```
 
-## It works for static routes too!
+## Imperative API
 
-You can even import `Link` components that you didn't declare in your `routes.js`
-config file! It's using an es6 `Proxy` under the hood to auto-fill the `href` property
-based on the name of the `Link` component you imported.
-
-For exemple if you import this:
-```js
-// pages/index.js
-import { AboutLink } from '../routes'
-```
-what you will actually get is:
+### Router.pushRoute(name, params)
 ```jsx
-props => <Link href="/about" {...props} />
+<button onClick={() => Router.pushRoute('film', { id: 2 })}>
+  Go to film 2
+</button>
 ```
-Pretty cool huh?
