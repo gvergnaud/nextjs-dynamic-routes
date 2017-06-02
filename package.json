@@ -1,6 +1,6 @@
 {
   "name": "nextjs-dynamic-routes",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Super simple way to create dynamic routes with url parameters with Next.js",
   "main": "dist/index.js",
   "repository": {
@@ -22,8 +22,6 @@
     "webpack-node-externals": "^1.5.4"
   },
   "dependencies": {
-    "babel-plugin-proxy": "^1.1.0",
-    "lodash": "^4.17.4",
     "path-match": "^1.2.4"
   },
   "peerDependencies": {
