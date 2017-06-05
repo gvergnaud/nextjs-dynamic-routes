@@ -1,6 +1,6 @@
 {
   "name": "nextjs-dynamic-routes",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Super simple way to create dynamic routes with url parameters with Next.js",
   "main": "dist/index.js",
   "repository": {

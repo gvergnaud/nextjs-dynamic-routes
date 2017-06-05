@@ -72,11 +72,12 @@ module.exports =
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queryString__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__object__ = __webpack_require__(5);
-/* unused harmony export replaceWithParams */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addInitialSlash; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return createLinkProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "replaceWithParams", function() { return replaceWithParams; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addInitialSlash", function() { return addInitialSlash; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createLinkProps", function() { return createLinkProps; });
 
 
 
@@ -184,32 +185,24 @@ var fromString = function fromString(str) {
 
 /***/ }),
 /* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_match__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_match___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path_match__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_link__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_link___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_next_link__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_next_router__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_next_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_next_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_routing__ = __webpack_require__(0);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var pathMatch = __webpack_require__(3);
+var React = __webpack_require__(4);
+var Link = __webpack_require__(1).default;
+var NextRouter = __webpack_require__(2).default;
 
+var _require = __webpack_require__(0),
+    addInitialSlash = _require.addInitialSlash,
+    createLinkProps = _require.createLinkProps;
 
-
-
-
-
-var match = __WEBPACK_IMPORTED_MODULE_0_path_match___default()();
+var match = pathMatch();
 
 var Router = function Router() {
   var _this = this;
@@ -222,7 +215,7 @@ var Router = function Router() {
     var pattern = _ref.pattern,
         name = _ref.name,
         _ref$page = _ref.page,
-        page = _ref$page === undefined ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_routing__["a" /* addInitialSlash */])(name) : _ref$page;
+        page = _ref$page === undefined ? addInitialSlash(name) : _ref$page;
 
     _this.routes.push({ pattern: pattern, page: page, name: name });
   };
@@ -237,30 +230,61 @@ var Router = function Router() {
 
   this.Link = function (_ref2) {
     var children = _ref2.children,
-        route = _ref2.route,
+        name = _ref2.route,
         params = _objectWithoutProperties(_ref2, ['children', 'route']);
 
     var _getRoute = _this.getRoute(name),
         page = _getRoute.page,
         pattern = _getRoute.pattern;
 
-    return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_2_next_link___default.a,
-      _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_routing__["b" /* createLinkProps */])(page, pattern, params), params),
+    return React.createElement(
+      Link,
+      _extends({}, createLinkProps(page, pattern, params), params),
       children
     );
   };
 
-  this.pushRoute = function (name, params) {
+  this.pushRoute = function (name) {
+    var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var options = arguments[2];
+
     var _getRoute2 = _this.getRoute(name),
         page = _getRoute2.page,
         pattern = _getRoute2.pattern;
 
-    var _createLinkProps = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils_routing__["b" /* createLinkProps */])(page, pattern, params),
+    var _createLinkProps = createLinkProps(page, pattern, params),
         href = _createLinkProps.href,
         as = _createLinkProps.as;
 
-    return __WEBPACK_IMPORTED_MODULE_3_next_router___default.a.push(href, as);
+    return NextRouter.push(href, as, options);
+  };
+
+  this.replaceRoute = function (name) {
+    var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var options = arguments[2];
+
+    var _getRoute3 = _this.getRoute(name),
+        page = _getRoute3.page,
+        pattern = _getRoute3.pattern;
+
+    var _createLinkProps2 = createLinkProps(page, pattern, params),
+        href = _createLinkProps2.href,
+        as = _createLinkProps2.as;
+
+    return Router.replace(href, as, options);
+  };
+
+  this.prefetchRoute = function (name) {
+    var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    var _getRoute4 = _this.getRoute(name),
+        page = _getRoute4.page,
+        pattern = _getRoute4.pattern;
+
+    var _createLinkProps3 = createLinkProps(page, pattern, params),
+        href = _createLinkProps3.href;
+
+    return Router.prefetch(href);
   };
 
   this.getMatchingRoute = function (url) {
@@ -287,14 +311,14 @@ var Router = function Router() {
   };
 
   this.getRoutePath = function (routeName, params) {
-    var _getRoute3 = _this.getRoute(name),
-        pattern = _getRoute3.pattern;
+    var _getRoute5 = _this.getRoute(name),
+        pattern = _getRoute5.pattern;
 
     return replaceWithParams(pattern, params);
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = Router;
+module.exports = Router;
 
 /***/ })
 /******/ ]);

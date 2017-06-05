@@ -32,7 +32,7 @@ Create a `routes.js` file and list all your **Dynamic** routes.
 You don't have to list your regular routes, as Next.js will handle them as usual.
 
 ```js
-const Router = require('nextjs-dynamic-routes').default
+const Router = require('nextjs-dynamic-routes')
 
 const router = new Router()
 
@@ -91,6 +91,21 @@ export default () => (
 )
 ```
 
+```jsx
+// pages/character.js
+import React from 'react'
+
+export default class Character extends React.Component {
+  static async getInitialProps({ query }) {
+    return fetch(`//swapi.co/api/films/${query.id}`).then(x => x.json())
+  }
+
+  render() {
+    return <p>{this.props.name}</p>
+  }
+}
+```
+
 ## Prefetching data
 Next.js has this great feature allowing you to prefetch data for your next routes
 in the background.
@@ -103,9 +118,29 @@ You can benefit of that by simply putting a `prefetch` property on any Link :
 
 ## Imperative API
 
-### Router.pushRoute(name, params)
+### Router.pushRoute(name, params [, options])
 ```jsx
+import Router from '../routes'
+
 <button onClick={() => Router.pushRoute('film', { id: 2 })}>
   Go to film 2
+</button>
+```
+
+### Router.replaceRoute(name, params [, options])
+```jsx
+import Router from '../routes'
+
+<button onClick={() => Router.replaceRoute('film', { id: 2 })}>
+  Go to film 2
+</button>
+```
+
+### Router.prefetchRoute(name, params)
+```jsx
+import Router from '../routes'
+
+<button onClick={() => Router.prefetchRoute('film', { id: 2 })}>
+  Prefetch film 2
 </button>
 ```

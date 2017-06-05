@@ -1,12 +1,12 @@
-import pathMatch from 'path-match'
-import React from 'react'
-import Link from 'next/link'
-import NextRouter from 'next/router'
-import { addInitialSlash, createLinkProps } from './utils/routing'
+const pathMatch = require('path-match')
+const React = require('react')
+const Link = require('next/link').default
+const NextRouter = require('next/router').default
+const { addInitialSlash, createLinkProps } = require('./utils/routing')
 
 const match = pathMatch()
 
-export default class Router {
+class Router {
 
   routes = []
 
@@ -20,7 +20,7 @@ export default class Router {
     return route
   }
 
-  Link = ({ children, route, ...params }) => {
+  Link = ({ children, route: name, ...params }) => {
     const { page, pattern } = this.getRoute(name)
 
     return (
@@ -28,10 +28,22 @@ export default class Router {
     )
   }
 
-  pushRoute = (name, params) => {
+  pushRoute = (name, params = {}, options) => {
     const { page, pattern } = this.getRoute(name)
     const { href, as } = createLinkProps(page, pattern, params)
-    return NextRouter.push(href, as)
+    return NextRouter.push(href, as, options)
+  }
+
+  replaceRoute = (name, params = {}, options) => {
+    const { page, pattern } = this.getRoute(name)
+    const { href, as } = createLinkProps(page, pattern, params)
+    return Router.replace(href, as, options)
+  }
+
+  prefetchRoute = (name, params = {}) => {
+    const { page, pattern } = this.getRoute(name)
+    const { href } = createLinkProps(page, pattern, params)
+    return Router.prefetch(href)
   }
 
   getMatchingRoute = (url) => {
@@ -59,3 +71,5 @@ export default class Router {
   }
 
 }
+
+module.exports = Router
