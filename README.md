@@ -144,3 +144,11 @@ import Router from '../routes'
   Prefetch film 2
 </button>
 ```
+
+### Router.getRoutePath(name, params)
+```js
+import Router from '../routes'
+
+console.log(Router.getRoutePath('characterAndFilm', { characterId: 2, filmId: 5 }))
+// => '/character-and-film/2/5'
+```
