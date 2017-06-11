@@ -2,7 +2,7 @@ const pathMatch = require('path-match')
 const React = require('react')
 const Link = require('next/link').default
 const NextRouter = require('next/router').default
-const { addInitialSlash, createLinkProps } = require('./utils/routing')
+const { addInitialSlash, createLinkProps, replaceWithParams } = require('./utils/routing')
 
 const match = pathMatch()
 
@@ -66,7 +66,7 @@ class Router {
   }
 
   getRoutePath = (routeName, params) => {
-    const { pattern } = this.getRoute(name)
+    const { pattern } = this.getRoute(routeName)
     return replaceWithParams(pattern, params)
   }
 

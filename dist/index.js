@@ -200,7 +200,8 @@ var NextRouter = __webpack_require__(2).default;
 
 var _require = __webpack_require__(0),
     addInitialSlash = _require.addInitialSlash,
-    createLinkProps = _require.createLinkProps;
+    createLinkProps = _require.createLinkProps,
+    replaceWithParams = _require.replaceWithParams;
 
 var match = pathMatch();
 
@@ -311,7 +312,7 @@ var Router = function Router() {
   };
 
   this.getRoutePath = function (routeName, params) {
-    var _getRoute5 = _this.getRoute(name),
+    var _getRoute5 = _this.getRoute(routeName),
         pattern = _getRoute5.pattern;
 
     return replaceWithParams(pattern, params);
