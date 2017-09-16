@@ -1,9 +1,5 @@
 {
-  "plugins": ["donna-lol"],
   "do": [
-    [
-      "lol"
-    ],
     [
       "open",
       "Atom",

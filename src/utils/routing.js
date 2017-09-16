@@ -1,5 +1,5 @@
 import { toString } from './queryString'
-import { mapValues } from './object'
+import { mapValues, filterValues } from './object'
 
 export const replaceWithParams = (pattern, params) =>
   Object.keys(params)
@@ -8,7 +8,12 @@ export const replaceWithParams = (pattern, params) =>
 
 export const addInitialSlash = str => !!str.match(/^\//) ? str : `/${str}`
 
-export const createLinkProps = (page = '', pattern = '', params) => ({
-  href: `${addInitialSlash(page)}?${toString(params)}`,
-  as: replaceWithParams(pattern, params),
-})
+export const createLinkProps = (page = '', pattern = '', params) => {
+  const restParams = filterValues((_, key) => !pattern.match(`:${key}`), params)
+
+  return {
+    ...restParams,
+    href: `${addInitialSlash(page)}?${toString(params)}`,
+    as: replaceWithParams(pattern, params),
+  }
+}

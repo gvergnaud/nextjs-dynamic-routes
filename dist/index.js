@@ -78,6 +78,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "replaceWithParams", function() { return replaceWithParams; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addInitialSlash", function() { return addInitialSlash; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createLinkProps", function() { return createLinkProps; });
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 
 
 
@@ -95,10 +97,15 @@ var createLinkProps = function createLinkProps() {
   var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   var pattern = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
   var params = arguments[2];
-  return {
+
+  var restParams = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__object__["a" /* filterValues */])(function (_, key) {
+    return !pattern.match(':' + key);
+  }, params);
+
+  return _extends({}, restParams, {
     href: addInitialSlash(page) + '?' + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queryString__["a" /* toString */])(params),
     as: replaceWithParams(pattern, params)
-  };
+  });
 };
 
 /***/ }),
@@ -132,6 +139,9 @@ module.exports = require("react");
 "use strict";
 /* unused harmony export mapValues */
 /* unused harmony export mapKeys */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return filterValues; });
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var mapValues = function mapValues(mapper) {
@@ -148,6 +158,16 @@ var mapKeys = function mapKeys(mapper) {
       return Object.assign(acc, _defineProperty({}, mapper(k, obj[k], obj), obj[k]));
     }, {});
   };
+};
+
+var filterValues = function filterValues(predicate, obj) {
+  return Object.entries(obj).reduce(function (acc, _ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        k = _ref2[0],
+        v = _ref2[1];
+
+    return predicate(v, k) ? Object.assign(acc, _defineProperty({}, k, v)) : acc;
+  }, {});
 };
 
 /***/ }),
@@ -186,8 +206,6 @@ var fromString = function fromString(str) {
 /***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
@@ -240,7 +258,7 @@ var Router = function Router() {
 
     return React.createElement(
       Link,
-      _extends({}, createLinkProps(page, pattern, params), params),
+      createLinkProps(page, pattern, params),
       children
     );
   };

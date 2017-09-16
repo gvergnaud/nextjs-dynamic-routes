@@ -24,7 +24,7 @@ class Router {
     const { page, pattern } = this.getRoute(name)
 
     return (
-      <Link {...createLinkProps(page, pattern, params)} {...params}>{children}</Link>
+      <Link {...createLinkProps(page, pattern, params)}>{children}</Link>
     )
   }
 
