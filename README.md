@@ -111,7 +111,7 @@ export default class Character extends React.Component {
 Next.js has this great feature allowing you to prefetch data for your next routes
 in the background.
 
-You can benefit of that by simply putting a `prefetch` property on any Link :
+You can benefit from that by simply putting a `prefetch` property on any Link :
 
 ```jsx
 <Link prefetch route="film" id="2"><a>The Empire Strikes Back</a></Link>
