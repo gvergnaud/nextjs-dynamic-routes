@@ -29,7 +29,7 @@ npm install --save nextjs-dynamic-routes
 
 ### Setup your routes
 Create a `routes.js` file and list all your **Dynamic** routes.
-You don't have to list your regular routes, as Next.js will handle them as usual.
+You don't have to list your regular routes, as Next.js will handle them as usual (but you can!).
 
 ```js
 const Router = require('nextjs-dynamic-routes')
