@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'Router.js'),
@@ -22,8 +21,7 @@ module.exports = {
     new webpack.DefinePlugin({'process.env.NODE_ENV': '"production"'})
   ],
   externals: [
-    nodeExternals({
-      modulesFromFile: true
-    })
-]
+    'react',
+    'next'
+  ]
 }

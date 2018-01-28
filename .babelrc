@@ -1,7 +1,14 @@
 {
-    "presets": [
-        ["es2015", { "modules": false }],
-        "stage-2",
-        "react"
-    ]
+  "presets": [
+    "env",
+    "next/babel"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        "env",
+        "next/babel"
+      ]
+    }
+  }
 }

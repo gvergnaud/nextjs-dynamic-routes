@@ -1,17 +1,16 @@
-const pathMatch = require('path-match')
-const React = require('react')
-const Link = require('next/link').default
-const NextRouter = require('next/router').default
-const { addInitialSlash, createLinkProps, replaceWithParams } = require('./utils/routing')
+import pathMatch from 'path-match'
+import React from 'react'
+import Link from 'next/link'
+import NextRouter from 'next/router'
+import { addInitialSlash, createLinkProps, replaceWithParams } from './utils/routing'
 
 const match = pathMatch()
 
 class Router {
-
   routes = []
 
-  add = ({ pattern, name, page = addInitialSlash(name) }) => {
-    this.routes.push({ pattern, page, name })
+  add = ({ pattern, name, page = addInitialSlash(name) }) => {
+    this.routes.push({ pattern, page, name })
   }
 
   getRoute = name => {
@@ -23,9 +22,7 @@ class Router {
   Link = ({ children, route: name, ...params }) => {
     const { page, pattern } = this.getRoute(name)
 
-    return (
-      <Link {...createLinkProps(page, pattern, params)}>{children}</Link>
-    )
+    return <Link {...createLinkProps(page, pattern, params)}>{children}</Link>
   }
 
   pushRoute = (name, params = {}, options) => {
@@ -37,25 +34,25 @@ class Router {
   replaceRoute = (name, params = {}, options) => {
     const { page, pattern } = this.getRoute(name)
     const { href, as } = createLinkProps(page, pattern, params)
-    return Router.replace(href, as, options)
+    return NextRouter.replace(href, as, options)
   }
 
   prefetchRoute = (name, params = {}) => {
     const { page, pattern } = this.getRoute(name)
     const { href } = createLinkProps(page, pattern, params)
-    return Router.prefetch(href)
+    return NextRouter.prefetch(href)
   }
 
-  getMatchingRoute = (url) => {
+  getMatchingRoute = url => {
     return this.routes.reduce((acc, { page, pattern }) => {
       if (acc.page) return acc
       const params = match(pattern)(url)
-      if (params) return { page, params }
+      if (params) return { page, params }
       else return acc
     }, {})
   }
 
-  getRequestHandler = (app) => {
+  getRequestHandler = app => {
     const handle = app.getRequestHandler()
 
     return (req, res) => {
@@ -69,7 +66,6 @@ class Router {
     const { pattern } = this.getRoute(routeName)
     return replaceWithParams(pattern, params)
   }
-
 }
 
 module.exports = Router

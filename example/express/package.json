@@ -15,10 +15,10 @@
   "dependencies": {
     "express": "^4.14.1",
     "isomorphic-fetch": "^2.2.1",
-    "next": "^3.2.2",
+    "next": "4",
     "nextjs-dynamic-routes": "^2.1.6",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react": "16",
+    "react-dom": "16"
   },
   "engines": {
     "node": ">=7.5"

@@ -1,4 +1,4 @@
-const Router = require('nextjs-dynamic-routes')
+const Router = require('./router')
 
 const router = new Router()
 
