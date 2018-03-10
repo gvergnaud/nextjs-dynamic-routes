@@ -12,6 +12,7 @@ class Router {
 
   add = ({ pattern, name, page = addInitialSlash(name) }) => {
     this.routes.push({ pattern, page, name })
+    return this
   }
 
   getRoute = name => {
