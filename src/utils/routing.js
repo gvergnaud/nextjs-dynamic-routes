@@ -3,8 +3,8 @@ import { mapValues, filterValues } from './object'
 
 export const replaceWithParams = (pattern, params) =>
   Object.keys(params)
-    .reduce((acc, param) => acc.replace(`:${param}`, params[param]), pattern)
-    .replace(/:[^\/&\?]*(\/|$)/g, '')
+    .reduce((acc, param) => acc.replace(new RegExp(`:${param}\\??`), params[param]), pattern)
+    .replace(/:[^\/&]*(\/|$)/g, '')
 
 export const addInitialSlash = str => !!str.match(/^\//) ? str : `/${str}`
 
