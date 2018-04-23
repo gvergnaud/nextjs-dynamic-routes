@@ -1,10 +1,19 @@
 import { toString } from './queryString'
-import { mapValues, filterValues } from './object'
+import { filterValues } from './object'
+import { flatMap } from './array'
+
+const paramRegExp = /(:[^\/&\?]*\??)(\/|$)/g
+
+const escapeRegExp = str => str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
 
 export const replaceWithParams = (pattern, params) =>
-  Object.keys(params)
-    .reduce((acc, param) => acc.replace(`:${param}`, params[param]), pattern)
-    .replace(/:[^\/&\?]*(\/|$)/g, '')
+    Object.keys(params)
+      .reduce(
+        (acc, param) =>
+          acc.replace(new RegExp(`:${escapeRegExp(param)}\\??(?=(\\/|$|\\?))`), params[param]),
+        pattern
+      )
+      .replace(paramRegExp, '')
 
 export const addInitialSlash = str => !!str.match(/^\//) ? str : `/${str}`
 
