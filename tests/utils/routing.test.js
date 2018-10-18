@@ -17,3 +17,13 @@ test('replaceWithParams should support optional params', () => {
   expect(replaceWithParams('/company/:slug?/:view', { slug: 'google' })).toBe('/company/google/')
   expect(replaceWithParams('/company/:slug?/:view', { view: 'test' })).toBe('/company/test')
 })
+
+test('replaceWithParams should add unused options as query params', () => {
+  expect(
+    replaceWithParams('/company/:slug/:view?', {
+      slug: 'google',
+      some: 'param',
+      someother: 'param2'
+    })
+  ).toBe('/company/google/?some=param&someother=param2')
+})

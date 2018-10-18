@@ -2,6 +2,7 @@ const pathMatch = require('path-match')
 const React = require('react')
 const Link = require('next/link').default
 const NextRouter = require('next/router').default
+const { parseUrl } = require('./utils/queryString')
 const { addInitialSlash, createLinkProps, replaceWithParams } = require('./utils/routing')
 
 const match = pathMatch()
@@ -50,8 +51,9 @@ class Router {
   getMatchingRoute = (url) => {
     return this.routes.reduce((acc, { page, pattern }) => {
       if (acc.page) return acc
-      const params = match(pattern)(url)
-      if (params) return { page, params }
+      const { pathname, queryParams } = parseUrl(url)
+      const params = match(pattern)(pathname)
+      if (params) return { page, params: { ...params, ...queryParams } }
       else return acc
     }, {})
   }

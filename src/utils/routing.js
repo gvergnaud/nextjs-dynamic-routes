@@ -18,11 +18,21 @@ export const replaceWithParams = (pattern, params) =>
 export const addInitialSlash = str => !!str.match(/^\//) ? str : `/${str}`
 
 export const createLinkProps = (page = '', pattern = '', params) => {
-  const restParams = filterValues((_, key) => !pattern.match(`:${key}`), params)
+  const [
+    inlineParams,
+    { queryParams = {}, ...restParams },
+  ] = Object.keys(params)
+    .reduce(
+      ([inlineParams, otherParams], key) =>
+        pattern.match(`:${key}`)
+          ? [ { ...inlineParams, [key]: params[key] }, otherParams ]
+          : [ inlineParams, { ...otherParams, [key]: params[key] } ],
+      [{}, {}]
+    )
 
   return {
     ...restParams,
-    href: `${addInitialSlash(page)}?${toString(params)}`,
-    as: replaceWithParams(pattern, params),
+    href: `${addInitialSlash(page)}${toString({ ...inlineParams, ...queryParams })}`,
+    as: `${replaceWithParams(pattern, inlineParams)}${toString(queryParams)}`,
   }
 }

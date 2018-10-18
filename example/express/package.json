@@ -13,12 +13,12 @@
     "postinstall": "npm run build"
   },
   "dependencies": {
-    "express": "^4.14.1",
+    "express": "^4.16.4",
     "isomorphic-fetch": "^2.2.1",
-    "next": "^3.2.2",
-    "nextjs-dynamic-routes": "^2.1.6",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "next": "^7.0.2",
+    "nextjs-dynamic-routes": "^2.1.9",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   },
   "engines": {
     "node": ">=7.5"
