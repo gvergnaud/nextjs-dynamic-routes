@@ -1,4 +1,4 @@
-import { replaceWithParams } from '../../src/utils/routing'
+import { createLinkProps, replaceWithParams } from '../../src/utils/routing'
 
 test('replaceWithParams should parse single params', () => {
   expect(replaceWithParams('/users/:id', { id: 2 })).toBe(`/users/2`)
@@ -18,12 +18,35 @@ test('replaceWithParams should support optional params', () => {
   expect(replaceWithParams('/company/:slug?/:view', { view: 'test' })).toBe('/company/test')
 })
 
-test('replaceWithParams should add unused options as query params', () => {
+test('createLinkProps support queryParams', () => {
   expect(
-    replaceWithParams('/company/:slug/:view?', {
+    createLinkProps(
+      'company',
+      '/company/:slug/:view?', {
       slug: 'google',
-      some: 'param',
-      someother: 'param2'
+      queryParams: {
+        some: 'param',
+        someother: 'param2'
+      }
     })
-  ).toBe('/company/google/?some=param&someother=param2')
+  ).toEqual({
+    href: '/company?some=param&someother=param2&slug=google',
+    as: '/company/google/?some=param&someother=param2'
+  })
+
+  expect(
+    createLinkProps(
+      'company',
+      '/company/:slug/:view?', {
+      slug: 'google',
+      view: 'home',
+      queryParams: {
+        some: 'param',
+        someother: 'param2'
+      }
+    })
+  ).toEqual({
+    href: '/company?some=param&someother=param2&slug=google&view=home',
+    as: '/company/google/home?some=param&someother=param2'
+  })
 })
