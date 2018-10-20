@@ -153,3 +153,25 @@ import Router from '../routes'
 console.log(Router.getRoutePath('characterAndFilm', { characterId: 2, filmId: 5 }))
 // => '/character-and-film/2/5'
 ```
+
+## Query params
+The Link component has a `queryParams` prop which you can fill with an object of regular query parameters.
+
+```jsx
+<Link prefetch route="film" id="2" queryParams={{ utm_campaign: 'website' }}>
+  <a>The Empire Strikes Back</a>
+</Link>
+```
+This will result in the following url: `/films/2?utm_campaign=website`.
+
+You can use `queryParams` with the imperative API as well
+
+```js
+// It doesn't work only for pushRoute, but for all the other methods as well.
+Router.pushRoute('film', {
+  id: 2,
+  queryParams: {
+    utm_campaign: 'website'
+  }
+})
+```
