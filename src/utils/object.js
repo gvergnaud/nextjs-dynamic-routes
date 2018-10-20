@@ -14,3 +14,12 @@ export const filterValues = (predicate, obj) =>
       predicate(v, k) ? Object.assign(acc, { [k]: v }) : acc,
     {}
   )
+
+export const splitProperties = (isLeft, obj) =>
+  Object.entries(obj).reduce(
+    ([left, right], [k, v]) =>
+      isLeft(v, k)
+        ? [{ ...left, [k]: v }, right]
+        : [left, { ...right, [k]: v }],
+    [{}, {}]
+  )

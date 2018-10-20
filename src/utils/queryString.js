@@ -7,7 +7,6 @@ export const toString = (params, prefix = '?') => {
   return queryString ? prefix + queryString : ''
 }
 
-
 export const fromString = str =>
   str
     .replace(/^\?/, '')

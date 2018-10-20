@@ -1,5 +1,5 @@
 import { toString } from './queryString'
-import { filterValues } from './object'
+import { filterValues, splitProperties } from './object'
 import { flatMap } from './array'
 
 const paramRegExp = /(:[^\/&\?]*\??)(\/|$)/g
@@ -21,18 +21,11 @@ export const createLinkProps = (page = '', pattern = '', params) => {
   const [
     inlineParams,
     { queryParams = {}, ...restParams },
-  ] = Object.keys(params)
-    .reduce(
-      ([inlineParams, otherParams], key) =>
-        pattern.match(`:${key}`)
-          ? [ { ...inlineParams, [key]: params[key] }, otherParams ]
-          : [ inlineParams, { ...otherParams, [key]: params[key] } ],
-      [{}, {}]
-    )
+  ] = splitProperties((_, key) => pattern.match(`:${key}`), params)
 
   return {
     ...restParams,
-    href: `${addInitialSlash(page)}${toString({ ...inlineParams, ...queryParams })}`,
+    href: `${addInitialSlash(page)}${toString({ ...queryParams, ...inlineParams })}`,
     as: `${replaceWithParams(pattern, inlineParams)}${toString(queryParams)}`,
   }
 }
