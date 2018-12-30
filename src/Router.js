@@ -7,9 +7,21 @@ const { addInitialSlash, createLinkProps, replaceWithParams } = require('./utils
 
 const match = pathMatch()
 
+class Events {
+  on = (name, method) => {
+    NextRouter.events.on(name, method)
+  }
+
+  off = (name, method) => {
+    NextRouter.events.off(name, method)
+  }
+}
+
 class Router {
 
   routes = []
+
+  events = new Events
 
   add = ({ pattern, name, page = addInitialSlash(name) }) => {
     this.routes.push({ pattern, page, name })
