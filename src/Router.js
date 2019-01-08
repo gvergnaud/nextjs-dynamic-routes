@@ -11,6 +11,8 @@ class Router {
 
   routes = []
 
+  events = NextRouter.events
+
   add = ({ pattern, name, page = addInitialSlash(name) }) => {
     this.routes.push({ pattern, page, name })
     return this
