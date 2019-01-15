@@ -10,3 +10,12 @@ test('getMatchingRoute should should decode query params', () => {
     params: { test: 'ä' },
   })
 })
+
+test('getMatchingRoute should give precedence to inline params', () => {
+  const router = new Router()
+  router.add({ name: 'film', pattern: '/films/:id' })
+  expect(router.getMatchingRoute('/films/2?utm_campaign=website&id=1')).toEqual({
+    page: '/film',
+    params: { id: '2', utm_campaign: 'website' },
+  })
+})
