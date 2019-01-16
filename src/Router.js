@@ -41,13 +41,13 @@ class Router {
   replaceRoute = (name, params = {}, options) => {
     const { page, pattern } = this.getRoute(name)
     const { href, as } = createLinkProps(page, pattern, params)
-    return Router.replace(href, as, options)
+    return NextRouter.replace(href, as, options)
   }
 
   prefetchRoute = (name, params = {}) => {
     const { page, pattern } = this.getRoute(name)
     const { href } = createLinkProps(page, pattern, params)
-    return Router.prefetch(href)
+    return NextRouter.prefetch(href)
   }
 
   getMatchingRoute = (url) => {
