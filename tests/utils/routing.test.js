@@ -1,3 +1,4 @@
+import urlLib from 'url'
 import { createLinkProps, replaceWithParams } from '../../src/utils/routing'
 
 test('replaceWithParams should parse single params', () => {
@@ -48,5 +49,19 @@ test('createLinkProps support queryParams', () => {
   ).toEqual({
     href: '/company?some=param&someother=param2&slug=google&view=home',
     as: '/company/google/home?some=param&someother=param2'
+  })
+})
+
+test('createLinkProps encodes queryParams', () => {
+  const props = createLinkProps(
+    'test',
+    '/', {
+    queryParams: {
+      'a=b&c': 'd=e&f g',
+    }
+  })
+  const url = urlLib.parse(props.as, true)
+  expect(url.query).toEqual({
+    'a=b&c': 'd=e&f g',
   })
 })
