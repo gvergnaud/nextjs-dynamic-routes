@@ -44,7 +44,7 @@ router.add({ name: 'film', pattern: '/films/:id' })
 router.add({
   name: 'characterAndFilm',
   pattern: '/character-and-film/:characterId/:filmId',
-  page: 'character-and-film'
+  page: '/character-and-film'
 })
 
 module.exports = router
