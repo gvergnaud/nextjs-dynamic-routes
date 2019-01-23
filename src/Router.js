@@ -55,7 +55,7 @@ class Router {
       if (acc.page) return acc
       const { pathname, query: queryParams } = urlLib.parse(url, true)
       const params = match(pattern)(pathname)
-      if (params) return { page, params: { ...params, ...queryParams } }
+      if (params) return { page, params: { ...queryParams, ...params } }
       else return acc
     }, {})
   }
