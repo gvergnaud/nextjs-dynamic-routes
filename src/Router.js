@@ -63,10 +63,13 @@ class Router {
   getRequestHandler = (app) => {
     const handle = app.getRequestHandler()
 
-    return (req, res) => {
+    return (req, res, superParams) => {
       const { page, params } = this.getMatchingRoute(req.url)
-      if (page) app.render(req, res, page, params)
-      else handle(req, res)
+      if (page) app.render(req, res, page, {
+        ...params,
+        ...superParams
+      })
+      else handle(req, res, null, superParams)
     }
   }
 
