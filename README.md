@@ -1,5 +1,11 @@
 # Next.js Dynamic Routes
 
+## /!\ Deprecated, please don't use
+
+Dynamic routes are now natively supported on Nextjs v9 and higher. This package will stay around on npm, but it is now unmaintained and there will be no new releases.
+
+----------
+
 A dynamic routing solution for the awesome [Next.js](https://github.com/zeit/next.js)
 framework.
 
